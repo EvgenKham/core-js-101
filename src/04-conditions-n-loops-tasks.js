@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* *************************************************************************************************
  *                                                                                                *
  * Please read the following tutorial before implementing tasks:                                   *
@@ -222,8 +223,14 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const firstBracket = isStartIncluded ? '[' : '(';
+  const lastBracket = isEndIncluded ? ']' : ')';
+
+  if (a < b) {
+    return `${firstBracket}${a}, ${b}${lastBracket}`;
+  }
+  return `${firstBracket}${b}, ${a}${lastBracket}`;
 }
 
 
@@ -440,8 +447,22 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const result = new Array(m1.length);
+
+  for (let row = 0; row < m1.length; row += 1) {
+    result[row] = new Array(m2[0].length);
+
+    for (let column = 0; column < m2[0].length; column += 1) {
+      result[row][column] = 0;
+
+      for (let i = 0; i < m1[0].length; i += 1) {
+        result[row][column] += m1[row][i] * m2[i][column];
+      }
+    }
+  }
+
+  return result;
 }
 
 
@@ -475,8 +496,61 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const win = [
+    [
+      position[0][0],
+      position[0][1],
+      position[0][2],
+    ],
+    [
+      position[1][0],
+      position[1][1],
+      position[1][2],
+    ],
+    [
+      position[2][0],
+      position[2][1],
+      position[2][2],
+    ],
+    [
+      position[0][0],
+      position[1][0],
+      position[2][0],
+    ],
+    [
+      position[0][1],
+      position[1][1],
+      position[2][1],
+    ],
+    [
+      position[0][2],
+      position[1][2],
+      position[2][2],
+    ],
+    [
+      position[0][0],
+      position[1][1],
+      position[2][2],
+    ],
+    [
+      position[0][2],
+      position[1][1],
+      position[2][0],
+    ],
+  ];
+
+  let char;
+
+  for (let i = 0; i < win.length; i += 1) {
+    if ((win[i][0] === win[i][1]) && (win[i][0] === win[i][2])) {
+      if (win[i][0] !== undefined) {
+        char = win[i][0];
+        return char;
+      }
+    }
+  }
+  return char;
 }
 
 
